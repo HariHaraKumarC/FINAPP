@@ -1,9 +1,6 @@
 package hari.app.finapp.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -13,12 +10,14 @@ import java.io.Serializable;
 @Table(name = "portfolio")
 public class Portfolio implements Serializable {
 
-    @Column(name = "userId")
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "portfolioId")
-    private Long portfolioId;
+    private long portfolioId;
 
     @Column(name = "name")
     private String name;
@@ -31,14 +30,6 @@ public class Portfolio implements Serializable {
 
     //Used by Spring JPA
     protected Portfolio(){
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public long getPortfolioId() {
@@ -73,7 +64,15 @@ public class Portfolio implements Serializable {
         this.realizedGainLossAmount = realizedGainLossAmount;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String toString(){
-        return String.format("Portfolio[userId='%s, portfolioId='%s', name='%s', investmentAmount=%d, realizedGainLossAmount=%d]",userId,portfolioId,name,investmentAmount,realizedGainLossAmount);
+        return String.format("Portfolio[portfolioId='%s', name='%s', investmentAmount=%f, realizedGainLossAmount=%f]",portfolioId,name,investmentAmount,realizedGainLossAmount);
     }
 }
