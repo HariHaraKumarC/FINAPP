@@ -26,7 +26,7 @@ public class PortfolioController {
     @RequestMapping(value = "/portfolio/create",method= RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FinappResponseHandler> createPortfolio(@RequestBody Portfolio portfolio){
         portfolioService.savePortfolio(portfolio);
-        return new ResponseEntity<FinappResponseHandler>(new FinappResponseHandler("Portfolio successfully created"), HttpStatus.OK);
+        return new ResponseEntity<FinappResponseHandler>(new FinappResponseHandler(HttpStatus.OK.value(),HttpStatus.OK.getReasonPhrase(),"Portfolio successfully created"), HttpStatus.OK);
     }
 
     /**
