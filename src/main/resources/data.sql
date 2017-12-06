@@ -1,2 +1,2 @@
-INSERT INTO user(userId,firstName,lastName,email,birthDate,mobileNumber,password,userType) VALUES (1,'Hari','Jones','harijones@gmail.com','12/07/1990','9488481663','pass',0)
-INSERT INTO portfolio(userId,portfolioId,name,investmentAmount,realizedGainLossAmount) VALUES (1,1,'P1',0.0,0.0)
+INSERT INTO USER(USER_ID,FIRST_NAME,LAST_NAME,EMAIL,BIRTH_DATE,MOBILE_NUMBER,PASSWORD,USER_TYPE) VALUES (1,'Hari','Jones','harijones@gmail.com',parsedatetime('12/07/1990','dd/mm/yyyy'),'9488481663','pass',0);
+INSERT INTO PORTFOLIO(USER_ID,PORTFOLIO_ID,NAME,INVESTMENT_AMOUNT,REALIZED_GAIN_LOSS_AMOUNT) VALUES (1,1,'P1',0.0,0.0)

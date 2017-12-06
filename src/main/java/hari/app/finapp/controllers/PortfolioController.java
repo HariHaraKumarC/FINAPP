@@ -1,12 +1,13 @@
 package hari.app.finapp.controllers;
 
 import hari.app.finapp.models.Portfolio;
-import hari.app.finapp.repositories.PortfolioRepository;
 import hari.app.finapp.services.PortfolioService;
+import hari.app.finapp.utils.FinappResponseHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by HariHaraKumar on 12/2/2017.
@@ -22,10 +23,10 @@ public class PortfolioController {
      * @param portfolio
      * @return String
      */
-    @RequestMapping(value = "/portfolio/create",method= RequestMethod.POST)
-    public String createPortfolio(@RequestBody Portfolio portfolio){
+    @RequestMapping(value = "/portfolio/create",method= RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FinappResponseHandler> createPortfolio(@RequestBody Portfolio portfolio){
         portfolioService.savePortfolio(portfolio);
-        return "Portfolio successfully created";
+        return new ResponseEntity<FinappResponseHandler>(new FinappResponseHandler("Portfolio successfully created"), HttpStatus.OK);
     }
 
     /**

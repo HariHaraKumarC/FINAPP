@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service("uerService")
 public class UserServiceImpl implements UserService {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     UserRepository userRepo;
 
@@ -38,6 +37,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isUserExists(User user) {
-        return userRepo.findUserByEmail(user.getEmail())!=null;
+        return userRepo.findByEmail(user.getEmail())!=null;
     }
 }

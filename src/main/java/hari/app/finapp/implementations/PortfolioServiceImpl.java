@@ -15,7 +15,6 @@ import java.util.List;
 @Service("portfolioService")
 public class PortfolioServiceImpl implements PortfolioService {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     PortfolioRepository portfolioRepo;
 
