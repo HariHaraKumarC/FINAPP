@@ -35,7 +35,7 @@ public class PortfolioController {
      * @throws Exception
      */
     @RequestMapping(value = "/portfolio/updateName",method= RequestMethod.PUT)
-    public String updatePortfolioName(@RequestParam("portfolioId") Long portfolioId,@RequestParam("portfolioName") String portfolioName) throws Exception{
+    public String updatePortfolioName(@RequestParam("portfolioId") long portfolioId,@RequestParam("portfolioName") String portfolioName) throws Exception{
         if(portfolioService.findById(portfolioId)!=null){
             portfolioService.updatePortfolioName(portfolioId,portfolioName);
         }else{
@@ -50,7 +50,7 @@ public class PortfolioController {
      * @return String
      */
     @RequestMapping(value = "/portfolio/delete",method= RequestMethod.DELETE)
-    public String deletePortfolio(@RequestParam("portfolioId") Long portfolioId)throws Exception{
+    public String deletePortfolio(@RequestParam("portfolioId") long portfolioId)throws Exception{
         if(portfolioService.findById(portfolioId)!=null){
             portfolioService.deletePortfolioById(portfolioId);
         }else{
@@ -65,7 +65,7 @@ public class PortfolioController {
      * @return Portfolio
      */
     @RequestMapping(value = "/portfolio/details",method= RequestMethod.GET)
-    public Portfolio getPortfolio(@RequestParam("portfolioId") Long portfolioId)throws Exception{
+    public Portfolio getPortfolio(@RequestParam("portfolioId") long portfolioId)throws Exception{
         Portfolio pf=portfolioService.findById(portfolioId);
         if(pf==null){
             throw new Exception("Portfolio "+portfolioId+" doesn't exists");

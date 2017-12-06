@@ -10,17 +10,17 @@ public interface PortfolioService {
 
     void savePortfolio(Portfolio portfolio);
 
-    void updatePortfolioName(Long portfolioId,String portfolioName);
+    void updatePortfolioName(long portfolioId,String portfolioName);
 
-    void updatePortfolioInvestmentAmount(Long portfolioId,double amount,int opCode);
+    void updatePortfolioInvestmentAmount(long portfolioId,double amount,int opCode);
 
-    void updatePortfolioGainLossAmount(Long portfolioId,double amount,int opCode);
+    void updatePortfolioGainLossAmount(long portfolioId,double amount,int opCode);
 
     void deleteAllPortfolio();
 
-    void deletePortfolioById(Long portfolioId);
+    void deletePortfolioById(long portfolioId);
 
-    Portfolio findById(Long portfolioId);
+    Portfolio findById(long portfolioId);
 
     boolean isPortfolioExists(Portfolio portfolio);
 

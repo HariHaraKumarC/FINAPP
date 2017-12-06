@@ -15,20 +15,24 @@ import java.util.List;
 @Service("portfolioService")
 public class PortfolioServiceImpl implements PortfolioService {
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     PortfolioRepository portfolioRepo;
 
+    @Override
     public void savePortfolio(Portfolio portfolio){
         portfolioRepo.save(portfolio);
     }
 
-    public void updatePortfolioName(Long portfolioId,String portfolioName){
+    @Override
+    public void updatePortfolioName(long portfolioId,String portfolioName){
         Portfolio pf=findById(portfolioId);
         pf.setName(portfolioName);
         savePortfolio(pf);
     }
 
-    public void updatePortfolioInvestmentAmount(Long portfolioId, double amount,int opCode) {
+    @Override
+    public void updatePortfolioInvestmentAmount(long portfolioId, double amount,int opCode) {
         Portfolio pf=findById(portfolioId);
         BigDecimal pfInvAmount=BigDecimal.valueOf(pf.getInvestmentAmount());
         BigDecimal changeAmount=BigDecimal.valueOf(amount);
@@ -43,7 +47,8 @@ public class PortfolioServiceImpl implements PortfolioService {
         savePortfolio(pf);
     }
 
-    public void updatePortfolioGainLossAmount(Long portfolioId, double amount,int opCode) {
+    @Override
+    public void updatePortfolioGainLossAmount(long portfolioId, double amount,int opCode) {
         Portfolio pf=findById(portfolioId);
         BigDecimal pfGainLossAmount=BigDecimal.valueOf(pf.getRealizedGainLossAmount());
         BigDecimal changeAmount=BigDecimal.valueOf(amount);
@@ -58,18 +63,22 @@ public class PortfolioServiceImpl implements PortfolioService {
         savePortfolio(pf);
     }
 
+    @Override
     public void deleteAllPortfolio() {
         portfolioRepo.deleteAll();
     }
 
-    public void deletePortfolioById(Long portfolioId) {
+    @Override
+    public void deletePortfolioById(long portfolioId) {
         portfolioRepo.delete(portfolioId);
     }
 
-    public Portfolio findById(Long portfolioId){
+    @Override
+    public Portfolio findById(long portfolioId){
        return portfolioRepo.findOne(portfolioId);
     }
 
+    @Override
      public boolean isPortfolioExists(Portfolio portfolio) {
          return findById(portfolio.getPortfolioId())!=null;
     }
