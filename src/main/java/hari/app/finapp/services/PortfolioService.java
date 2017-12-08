@@ -12,10 +12,6 @@ public interface PortfolioService {
 
     void updatePortfolioName(long portfolioId,String portfolioName);
 
-    void updatePortfolioInvestmentAmount(long portfolioId,double amount,int opCode);
-
-    void updatePortfolioGainLossAmount(long portfolioId,double amount,int opCode);
-
     void deleteAllPortfolio();
 
     void deletePortfolioById(long portfolioId);

@@ -3,7 +3,7 @@ package hari.app.finapp.utils;
 /**
  * Created by HariHaraKumar on 6/12/2017.
  */
-public class FinappResponseHandler {
+public class FinappCustomResponseMessageHandler {
 
     private String message;
 
@@ -15,7 +15,7 @@ public class FinappResponseHandler {
         this.message = message;
     }
 
-    public FinappResponseHandler(String message) {
+    public FinappCustomResponseMessageHandler(String message) {
         this.message = message;
     }
 }

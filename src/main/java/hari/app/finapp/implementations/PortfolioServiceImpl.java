@@ -31,38 +31,6 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public void updatePortfolioInvestmentAmount(long portfolioId, double amount,int opCode) {
-        Portfolio pf=findById(portfolioId);
-        BigDecimal pfInvAmount=BigDecimal.valueOf(pf.getInvestmentAmount());
-        BigDecimal changeAmount=BigDecimal.valueOf(amount);
-        BigDecimal totalInvAmount=BigDecimal.valueOf(0.00);
-        if(opCode==1){
-            totalInvAmount=pfInvAmount.add(changeAmount);
-        }else if(opCode==2){
-            totalInvAmount=pfInvAmount.subtract(changeAmount);
-        }
-        totalInvAmount=totalInvAmount.setScale(2,BigDecimal.ROUND_HALF_UP);
-        pf.setInvestmentAmount(totalInvAmount.doubleValue());
-        savePortfolio(pf);
-    }
-
-    @Override
-    public void updatePortfolioGainLossAmount(long portfolioId, double amount,int opCode) {
-        Portfolio pf=findById(portfolioId);
-        BigDecimal pfGainLossAmount=BigDecimal.valueOf(pf.getRealizedGainLossAmount());
-        BigDecimal changeAmount=BigDecimal.valueOf(amount);
-        BigDecimal totalGainLossAmount=BigDecimal.valueOf(0.00);
-        if(opCode==1){
-            totalGainLossAmount=pfGainLossAmount.add(changeAmount);
-        }else if(opCode==2){
-            totalGainLossAmount=pfGainLossAmount.subtract(changeAmount);
-        }
-        totalGainLossAmount=totalGainLossAmount.setScale(2,BigDecimal.ROUND_HALF_UP);
-        pf.setRealizedGainLossAmount(totalGainLossAmount.doubleValue());
-        savePortfolio(pf);
-    }
-
-    @Override
     public void deleteAllPortfolio() {
         portfolioRepo.deleteAll();
     }

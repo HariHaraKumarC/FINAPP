@@ -2,7 +2,7 @@ package hari.app.finapp.controllers;
 
 import hari.app.finapp.models.Portfolio;
 import hari.app.finapp.services.PortfolioService;
-import hari.app.finapp.utils.FinappResponseHandler;
+import hari.app.finapp.utils.FinappCustomResponseMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,56 +21,56 @@ public class PortfolioController {
     /**
      * Create new portfolio
      * @param portfolio
-     * @return String
+     * @return ResponseEntity
      */
     @RequestMapping(value = "/portfolio/create",method= RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FinappResponseHandler> createPortfolio(@RequestBody Portfolio portfolio){
+    public ResponseEntity<FinappCustomResponseMessageHandler> createPortfolio(@RequestBody Portfolio portfolio){
         portfolioService.savePortfolio(portfolio);
-        return new ResponseEntity<FinappResponseHandler>(new FinappResponseHandler(HttpStatus.OK.value(),HttpStatus.OK.getReasonPhrase(),"Portfolio successfully created"), HttpStatus.OK);
+        return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("Portfolio successfully created"), HttpStatus.OK);
     }
 
     /**
      * Update portfolio Name
      * @param portfolioId,portfolioName
-     * @return String
-     * @throws Exception
+     * @return ResponseEntity
      */
-    @RequestMapping(value = "/portfolio/updateName",method= RequestMethod.PUT)
-    public String updatePortfolioName(@RequestParam("portfolioId") long portfolioId,@RequestParam("portfolioName") String portfolioName) throws Exception{
+    @RequestMapping(value = "/portfolio/updateName",method= RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FinappCustomResponseMessageHandler> updatePortfolioName(@RequestParam("portfolioId") long portfolioId, @RequestParam("portfolioName") String portfolioName){
         if(portfolioService.findById(portfolioId)!=null){
             portfolioService.updatePortfolioName(portfolioId,portfolioName);
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("Portfolio "+portfolioId+" successfully updated"), HttpStatus.OK);
         }else{
-            throw new Exception("Portfolio "+portfolioId+" doesn't exists");
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("Portfolio "+portfolioId+" doesn't exists"), HttpStatus.NOT_FOUND);
         }
-        return "Portfolio "+portfolioId+" successfully updated";
     }
 
     /**
      * Delete portfolio
      * @param portfolioId
-     * @return String
+     * @return ResponseEntity
      */
-    @RequestMapping(value = "/portfolio/delete",method= RequestMethod.DELETE)
-    public String deletePortfolio(@RequestParam("portfolioId") long portfolioId)throws Exception{
+    @RequestMapping(value = "/portfolio/delete",method= RequestMethod.DELETE,produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FinappCustomResponseMessageHandler> deletePortfolio(@RequestParam("portfolioId") long portfolioId){
         if(portfolioService.findById(portfolioId)!=null){
             portfolioService.deletePortfolioById(portfolioId);
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("Portfolio "+portfolioId+" successfully deleted"), HttpStatus.OK);
         }else{
-            throw new Exception("Portfolio "+portfolioId+" doesn't exists");
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("Portfolio "+portfolioId+" doesn't exists"), HttpStatus.NOT_FOUND);
         }
-        return "Portfolio "+portfolioId+" successfully deleted";
     }
 
     /**
      * Get Specific portfolio
      * @param portfolioId
-     * @return Portfolio
+     * @return ResponseEntity
      */
-    @RequestMapping(value = "/portfolio/details",method= RequestMethod.GET)
-    public Portfolio getPortfolio(@RequestParam("portfolioId") long portfolioId)throws Exception{
+    @RequestMapping(value = "/portfolio/details",method= RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getPortfolio(@RequestParam("portfolioId") long portfolioId){
         Portfolio pf=portfolioService.findById(portfolioId);
         if(pf==null){
-            throw new Exception("Portfolio "+portfolioId+" doesn't exists");
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("Portfolio "+portfolioId+" doesn't exists"), HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<Portfolio>(pf,HttpStatus.OK);
         }
-        return pf;
     }
 }

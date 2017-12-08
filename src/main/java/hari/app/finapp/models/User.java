@@ -1,5 +1,7 @@
 package hari.app.finapp.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +16,7 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "userId")
+    @Column(name = "userId",nullable = false)
     private long userId;
 
     @Column(name = "firstName")
@@ -23,7 +25,7 @@ public class User implements Serializable {
     @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email",nullable = false,unique = true)
     private String email;
 
     @Column(name = "birthDate")
@@ -32,13 +34,14 @@ public class User implements Serializable {
     @Column(name = "mobileNumber")
     private String mobileNumber;
 
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String password;
 
     @Column(name = "userType")
     private int userType;
 
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Portfolio> portfolios;
 
     //Used by Spring JPA
@@ -115,9 +118,5 @@ public class User implements Serializable {
 
     public void setPortfolios(List<Portfolio> portfolios) {
         this.portfolios = portfolios;
-    }
-
-    public String toString(){
-        return String.format("User[userId='%s', firstName='%s', lastName='%s', email=%s, mobileNumber=%s]",userId,firstName,lastName,email,mobileNumber);
     }
 }

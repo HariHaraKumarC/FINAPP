@@ -2,7 +2,11 @@ package hari.app.finapp.controllers;
 
 import hari.app.finapp.models.User;
 import hari.app.finapp.services.UserService;
+import hari.app.finapp.utils.FinappCustomResponseMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -18,59 +22,59 @@ public class UserController {
     /**
      * Register new user
      * @param user
-     * @return String
+     * @return ResponseEntity
      */
-    @RequestMapping(value = "/user/register",method= RequestMethod.POST)
-    public String registerUser(@RequestBody User user) throws Exception {
+    @RequestMapping(value = "/user/register",method= RequestMethod.POST,produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FinappCustomResponseMessageHandler> registerUser(@RequestBody User user) {
         if(userService.isUserExists(user)){
-            throw new Exception("User with mail id "+user.getEmail()+" already exists");
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("User with mail id "+user.getEmail()+" already exists"), HttpStatus.CONFLICT);
         }else{
             userService.saveUser(user);
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("User successfully registered"), HttpStatus.OK);
         }
-        return "User successfully registered";
     }
 
     /**
      * Update user
      * @param user
-     * @return String
+     * @return ResponseEntity
      */
-    @RequestMapping(value = "/user/update",method= RequestMethod.PUT)
-    public String updateUser(@RequestBody User user) throws Exception {
+    @RequestMapping(value = "/user/update",method= RequestMethod.PUT,produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FinappCustomResponseMessageHandler> updateUser(@RequestBody User user){
         if(userService.isUserExists(user)){
             userService.updateUser(user);
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("User Details successfully updated"), HttpStatus.OK);
         }else{
-            throw new Exception("User with mail id "+user.getEmail()+" doesn't exists");
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("User with mail id "+user.getEmail()+" doesn't exists"), HttpStatus.NOT_FOUND);
         }
-        return "User Details successfully updated";
     }
 
     /**
      * Delete user
      * @param userId
-     * @return String
+     * @return ResponseEntity
      */
-    @RequestMapping(value = "/user/delete",method= RequestMethod.DELETE)
-    public String deleteUser(@RequestParam("userId") long userId) throws Exception {
+    @RequestMapping(value = "/user/delete",method= RequestMethod.DELETE,produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FinappCustomResponseMessageHandler> deleteUser(@RequestParam("userId") long userId){
         if(userService.findUserById(userId) !=null){
             userService.deleteUserById(userId);
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("User successfully de-registered"), HttpStatus.OK);
         }else{
-            throw new Exception("User doesn't exists");
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("User doesn't exists"), HttpStatus.NOT_FOUND);
         }
-        return "User successfully de-registered";
     }
 
     /**
      * Fetch user details
      * @param userId
-     * @return User
+     * @return ResponseEntity
      */
-    @RequestMapping(value = "/user/details",method= RequestMethod.DELETE)
-    public User getUser(@RequestParam("userId") long userId) throws Exception {
+    @RequestMapping(value = "/user/details",method= RequestMethod.GET,produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getUser(@RequestParam("userId") long userId){
         User user=userService.findUserById(userId);
         if(user==null){
-            throw new Exception("User doesn't exists");
+            return new ResponseEntity<FinappCustomResponseMessageHandler>(new FinappCustomResponseMessageHandler("User doesn't exists"), HttpStatus.NOT_FOUND);
         }
-        return user;
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 }
