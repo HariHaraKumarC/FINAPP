@@ -1,8 +1,7 @@
 package hari.app.finapp.models;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -28,7 +27,7 @@ public class Portfolio implements Serializable {
     @Column(name = "name",nullable = false)
     private String name;
 
-    @OneToOne(mappedBy = "portfolio",fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "portfolio",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
     private Savings savings;
 

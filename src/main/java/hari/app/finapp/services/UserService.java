@@ -1,6 +1,5 @@
 package hari.app.finapp.services;
 
-import hari.app.finapp.models.Portfolio;
 import hari.app.finapp.models.User;
 
 import java.util.List;

@@ -5,7 +5,6 @@ import hari.app.finapp.repositories.PortfolioRepository;
 import hari.app.finapp.services.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;

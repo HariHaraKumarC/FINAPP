@@ -1,6 +1,5 @@
 package hari.app.finapp.controllers;
 
-import hari.app.finapp.models.Portfolio;
 import hari.app.finapp.models.User;
 import hari.app.finapp.services.UserService;
 import hari.app.finapp.utils.FinappCustomResponseMessageHandler;

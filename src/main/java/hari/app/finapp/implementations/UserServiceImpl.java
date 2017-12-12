@@ -1,12 +1,10 @@
 package hari.app.finapp.implementations;
 
-import hari.app.finapp.models.Portfolio;
 import hari.app.finapp.models.User;
 import hari.app.finapp.repositories.UserRepository;
 import hari.app.finapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

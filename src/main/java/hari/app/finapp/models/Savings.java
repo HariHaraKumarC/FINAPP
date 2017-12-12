@@ -32,7 +32,7 @@ public class Savings implements Serializable {
     @Column(name = "interestReceived")
     private double interestReceived;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolioId")
     @JsonBackReference
     private Portfolio portfolio;
