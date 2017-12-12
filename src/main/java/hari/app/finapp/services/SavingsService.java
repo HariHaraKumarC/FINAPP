@@ -11,4 +11,7 @@ public interface SavingsService {
 
     void updateSavings(Savings savings);
 
+    void deleteSavingsById(long savingsId);
+
+    Savings findById(long savingsId);
 }

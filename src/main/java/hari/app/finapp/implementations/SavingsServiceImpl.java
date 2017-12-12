@@ -25,4 +25,14 @@ public class SavingsServiceImpl implements SavingsService {
     public void updateSavings(Savings savings) {
         saveSavings(savings);
     }
+
+    @Override
+    public void deleteSavingsById(long savingsId) {
+        savingsRepo.delete(savingsId);
+    }
+
+    @Override
+    public Savings findById(long savingsId) {
+        return savingsRepo.findOne(savingsId);
+    }
 }

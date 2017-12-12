@@ -1,6 +1,9 @@
 package hari.app.finapp.services;
 
+import hari.app.finapp.models.Portfolio;
 import hari.app.finapp.models.User;
+
+import java.util.List;
 
 /**
  * Created by HariHaraKumar on 12/5/2017.
@@ -16,4 +19,6 @@ public interface UserService {
     User findUserById(long userId);
 
     boolean isUserExists(User user);
+
+    List<User> listAllUsers();
 }

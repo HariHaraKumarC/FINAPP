@@ -1,5 +1,8 @@
 package hari.app.finapp.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -41,7 +44,7 @@ public class User implements Serializable {
     private int userType;
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     private List<Portfolio> portfolios;
 
     //Used by Spring JPA

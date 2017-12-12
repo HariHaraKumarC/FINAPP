@@ -20,4 +20,5 @@ public interface PortfolioService {
 
     boolean isPortfolioExists(Portfolio portfolio);
 
+    List<Portfolio> listAllPortfolios(Long userId);
 }

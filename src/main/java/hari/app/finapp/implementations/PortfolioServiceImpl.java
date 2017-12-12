@@ -5,6 +5,7 @@ import hari.app.finapp.repositories.PortfolioRepository;
 import hari.app.finapp.services.PortfolioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -48,5 +49,10 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
      public boolean isPortfolioExists(Portfolio portfolio) {
          return findById(portfolio.getPortfolioId())!=null;
+    }
+
+    @Override
+    public List<Portfolio> listAllPortfolios(Long userId) {
+        return portfolioRepo.findAllByUserUserId(userId);
     }
 }

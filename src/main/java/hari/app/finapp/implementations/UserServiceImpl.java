@@ -1,10 +1,14 @@
 package hari.app.finapp.implementations;
 
+import hari.app.finapp.models.Portfolio;
 import hari.app.finapp.models.User;
 import hari.app.finapp.repositories.UserRepository;
 import hari.app.finapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by HariHaraKumar on 12/5/2017.
@@ -38,5 +42,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUserExists(User user) {
         return userRepo.findByEmail(user.getEmail())!=null;
+    }
+
+    @Override
+    public List<User> listAllUsers() {
+        return userRepo.findAll();
     }
 }
