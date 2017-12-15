@@ -1,22 +1,22 @@
 package hari.app.finapp.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by HariHaraKumar on 8/12/2017.
+ * Created by HariHaraKumar on 13/12/2017.
  */
 @Entity
-@Table (name = "savings")
-public class Savings implements Serializable {
-
+@Table(name = "fixedDeposits")
+public class FixedDeposits implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "savingsId",nullable = false)
-    private long savingsId;
+    @Column(name = "fixedDepositsId",nullable = false)
+    private long fixedDepositsId;
 
     @Column(name = "principalAmount")
     private double principalAmount;
@@ -34,27 +34,27 @@ public class Savings implements Serializable {
     private double interestReceived;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "portfolioId")
+    @JoinColumn(name = "savingsId")
     @JsonBackReference
-    private Portfolio portfolio;
+    private Savings savings;
 
-    @OneToOne(mappedBy = "savings",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private FixedDeposits fixedDeposits;
+    @OneToOne(mappedBy = "fixedDeposits",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonIgnore
+    private FDTransactions fdTransactions;
 
-    public Savings(){
+    public FixedDeposits(){
     }
 
-    public Savings(Portfolio portfolio){
-        this.portfolio=portfolio;
+    public FixedDeposits(Savings savings){
+        this.savings=savings;
     }
 
-    public long getSavingsId() {
-        return savingsId;
+    public long getFixedDepositsId() {
+        return fixedDepositsId;
     }
 
-    public void setSavingsId(long savingsId) {
-        this.savingsId = savingsId;
+    public void setFixedDepositsId(long fixedDepositsId) {
+        this.fixedDepositsId = fixedDepositsId;
     }
 
     public double getPrincipalAmount() {
@@ -97,19 +97,19 @@ public class Savings implements Serializable {
         this.interestReceived = interestReceived;
     }
 
-    public Portfolio getPortfolio() {
-        return portfolio;
+    public Savings getSavings() {
+        return savings;
     }
 
-    public void setPortfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
+    public void setSavings(Savings savings) {
+        this.savings = savings;
     }
 
-    public FixedDeposits getFixedDeposits() {
-        return fixedDeposits;
+    public FDTransactions getFdTransactions() {
+        return fdTransactions;
     }
 
-    public void setFixedDeposits(FixedDeposits fixedDeposits) {
-        this.fixedDeposits = fixedDeposits;
+    public void setFdTransactions(FDTransactions fdTransactions) {
+        this.fdTransactions = fdTransactions;
     }
 }
