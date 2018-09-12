@@ -49,13 +49,13 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-     public boolean isPortfolioExists(Portfolio portfolio) {
-         return findById(portfolio.getPortfolioId())!=null;
+    public Portfolio findByUserId(long userId) {
+        return portfolioRepo.findByUserUserId(userId);
     }
 
     @Override
-    public List<Portfolio> listAllPortfolios(Long userId) {
-        return portfolioRepo.findAllByUserUserId(userId);
+    public boolean isPortfolioExists(Portfolio portfolio) {
+        return findById(portfolio.getPortfolioId())!=null;
     }
 
     /**

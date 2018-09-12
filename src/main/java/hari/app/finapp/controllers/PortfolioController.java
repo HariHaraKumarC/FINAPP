@@ -14,6 +14,7 @@ import java.util.List;
  * Created by HariHaraKumar on 12/2/2017.
  */
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class PortfolioController {
 
     @Autowired
@@ -61,11 +62,11 @@ public class PortfolioController {
     }
 
     /**
-     * Get Specific portfolio
+     * Get Specific portfolio by portfolioId
      * @param portfolioId
      * @return ResponseEntity
      */
-    @RequestMapping(value = "/portfolio/details",method= RequestMethod.GET)
+    /*@RequestMapping(value = "/portfolio/details",method= RequestMethod.GET)
     public ResponseEntity<?> getPortfolio(@RequestParam("portfolioId") long portfolioId){
         Portfolio pf=portfolioService.findById(portfolioId);
         if(pf==null){
@@ -73,16 +74,16 @@ public class PortfolioController {
         }else{
             return new ResponseEntity<Portfolio>(pf,HttpStatus.OK);
         }
-    }
+    }*/
 
     /**
-     * Fetch all portfolios for the user
+     * Get Specific portfolio details for the user
      * @param userId
      * @return ResponseEntity
      */
-    @RequestMapping(value = "/portfolio/listAll",method= RequestMethod.GET)
-    public ResponseEntity<List<Portfolio>> listAllPortfolios(@RequestParam("userId") long userId){
-        List<Portfolio> portfolios=portfolioService.listAllPortfolios(userId);
-        return new ResponseEntity<List<Portfolio>>(portfolios, HttpStatus.OK);
+    @RequestMapping(value = "/portfolio/details",method= RequestMethod.GET)
+    public ResponseEntity<Portfolio> listAllPortfolios(@RequestParam("userId") long userId){
+        Portfolio portfolio=portfolioService.findByUserId(userId);
+        return new ResponseEntity<Portfolio>(portfolio, HttpStatus.OK);
     }
 }

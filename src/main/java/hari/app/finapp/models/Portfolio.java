@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Table(name = "portfolio")
 public class Portfolio implements Serializable {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     @JsonBackReference
     private User user;

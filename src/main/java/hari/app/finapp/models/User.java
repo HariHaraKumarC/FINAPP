@@ -39,9 +39,9 @@ public class User implements Serializable {
     @Column(name = "userType")
     private int userType;
 
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user" , cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Portfolio> portfolios;
+    private Portfolio portfolio;
 
     //Used by Spring JPA
     protected User(){
@@ -111,11 +111,11 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
-    public List<Portfolio> getPortfolios() {
-        return portfolios;
+    public Portfolio getPortfolio() {
+        return portfolio;
     }
 
-    public void setPortfolios(List<Portfolio> portfolios) {
-        this.portfolios = portfolios;
+    public void setPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
     }
 }

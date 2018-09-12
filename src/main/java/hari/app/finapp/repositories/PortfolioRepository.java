@@ -13,6 +13,6 @@ import java.util.List;
 public interface PortfolioRepository extends JpaRepository<Portfolio,Long> {
 
     @Transactional
-    List<Portfolio> findAllByUserUserId(Long userId);
+    Portfolio findByUserUserId(Long userId);
 
 }
